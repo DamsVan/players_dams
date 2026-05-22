@@ -1,0 +1,47 @@
+yaml
+name: Genera Indice per Kodi
+name: Genera Indice per Kodi
+on: [push]
+on: [push]
+jobs:
+jobs:
+build:
+build:
+runs-on: ubuntu-latest
+runs-on: ubuntu-latest
+steps:
+steps:
+- uses: actions/checkout@v3
+- uses: actions/checkout@v3
+- name: Crea index.html automatico
+- name: Crea index.html automatico
+run: |
+run: |
+echo "I miei fighi lettori" > index.html
+echo "I miei fighi lettori" > index.html
+for file in *.zip; do
+for file in *.zip; do
+if [ -f "$file" ]; then
+if [ -f "$file" ]; then
+echo "<a href="$file">$file" >> index.html
+echo "<a href="$file">$file" >> index.html
+fi
+fi
+done
+done
+echo "" >> index.html
+echo "" >> index.html
+- name: Salva e pubblica
+- name: Salva e pubblica
+run: |
+run: |
+git config --global user.name "KodiBot"
+git config --global user.name "KodiBot"
+git config --global user.email "kodibot@github.com"
+git config --global user.email "kodibot@github.com"
+git add index.html
+git add index.html
+git diff-index --quiet HEAD || git commit -m "Lista aggiornata dal robot" -a
+git diff-index --quiet HEAD || git commit -m "Lista aggiornata dal robot" -a
+git push
+git push
