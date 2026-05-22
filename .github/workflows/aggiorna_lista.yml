@@ -1,10 +1,15 @@
 name: Genera Indice per Kodi
 on: [push]
+
+# Forza l'uso del motore aggiornato richiesto da GitHub
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Crea index.html automatico
       run: |
         echo "<!DOCTYPE html><html><body><h1>I miei fighi lettori</h1><ul>" > index.html
